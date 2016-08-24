@@ -94,15 +94,104 @@
 		</div>
 		<div class="subsection">
 			<h3>Tables</h3>
+			<p>
+				A table in html is used to represent tabular data. It should consist of one or more rows containing one or more columns.
+				Traditionally tables were used to structure entire pages. This is not a good practise. They should only be used where data can be classified as tabular.
+			</p>
+			<table>
+				<tbody>
+					<tr>
+						<th>Code</th>
+						<th>Visualisation</th>
+					</tr>
+					<tr>
+						<td><code>
+							&lt;table&gt;<br/>
+										&nbsp;&nbsp;&lt;tbody&gt;<br/>
+											&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br/>
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Heading 1&lt;/th&gt;<br/>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Heading 2&lt;/th&gt;<br/>
+											&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br/>
+											&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br/>
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;Row 1 Column 1&lt;/td&gt;<br/>
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;Row 1 Column 2&lt;/td&gt;<br/>
+										&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br/>
+										&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br/>
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;Row 2 Column 1&lt;/td&gt;<br/>
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;Row 2 Column 2&lt;/td&gt;<br/>
+										&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br/>
+									&nbsp;&nbsp;&lt;/tbody&gt;<br/>
+									&lt;/table&gt;
+							</code></td>
+						<td>
+							<table>
+								<tbody>
+									<tr>
+										<th>Heading 1</th>
+										<th>Heading 2</th>
+									</tr>
+									<tr>
+										<td>Row 1 Column 1</td>
+										<td>Row 1 Column 2</td>
+									</tr>
+									<tr>
+										<td>Row 2 Column 1</td>
+										<td>Row 2 Column 2</td>
+									</tr>
+									<tr>
+										<td>Row 2 Column 1</td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 		<div class="subsection">
 			<h3>Lists</h3>
-		</div>
-		<div class="subsection">
-			<h3>Horizontal rule</h3>
+			<p>There are three different types of list.</p>
+			<ul>
+				<li>Ordered lists <code>&lt;ol&gt;</code></li>
+				<li>Unordered lists <code>&lt;ul&gt;</code></li>
+				<li>Definition lists <code>&lt;dl&gt;</code></li>
+			</ul>
+			<div class="subsection">
+				<h4>Ordered lists</h4>
+				<p>Ordered lists are used to represent lists that have an order or weight</p>
+				<code>
+					&lt;ol&gt;
+						&lt;li&gt;Do first&lt;/li&gt;
+						&lt;li&gt;Do second&lt;/li&gt;
+						&lt;li&gt;Do third&lt;/li&gt;
+					&lt;/ol&gt;
+				</code>
+			</div>
+			<div class="subsection">
+				<h4>Unordered lists</h4>
+				<p>Unordered lists are used to represent lists that have a no order or weight</p>
+				<code>
+					&lt;ul class="menu"&gt;
+						&lt;li&gt;Home&lt;/li&gt;
+						&lt;li&gt;Shop&lt;/li&gt;
+						&lt;li&gt;Contact&lt;/li&gt;
+					&lt;/ul&gt;
+				</code>
+			</div>
+			<div class="subsection">
+				<h4>Definition lists</h4>
+				<p>Definition lists are used to represent an item term and it's data</p>
+				<code>
+					&lt;dl&gt;
+						&lt;dt&gt;Car&lt;/dt&gt;
+						&lt;dd&gt;4 wheel transportation device&lt;/dd&gt;
+						&lt;dt&gt;Motorbike&lt;/dt&gt;
+						&lt;dd&gt;2 wheel transportation device&lt;/dd&gt;
+					&lt;/dl&gt;
+				</code>
+			</div>
 		</div>
 	</div>
-	<hr/>
 	<div class="section" id="inline">
 		<h2>Inline elements</h2>
 		<p>
@@ -116,15 +205,23 @@
 		</div>
 		<div class="subsection">
 			<h3>Anchor (Link)</h3>
+			<p>The anchor element is used for linking to other resources. The resource could be within your page or on another page</p>
+			<p>An external link to <a href="http://google.se">&lt;a href="http://google.se"&gt;google&lt;/a&gt;</a></p>
+			<p>An internal link to <a href="#block">&lt;a href="#block"&gt;the block section&lt;/a&gt;</a></p>
 		</div>
 		<div class="subsection">
 			<h3>Strong</h3>
+			<p>The strong element is used for lifting out text that is <strong>&lt;strong&gt;important&lt;/strong&gt;</strong></p>
 		</div>
 		<div class="subsection">
 			<h3>Emphasis</h3>
+			<p>The emphasis element is also used for lifting out text in a sentance. It has slightly <em>&lt;em&gt;lower status&lt;/em&gt;</em> than strong.</p>
 		</div>
 		<div class="subsection">
 			<h3>Images</h3>
+			<p>Images can be included on your page with the <code>&lt;img&gt;</code> tag. They must have a src attribut pointing to the url of the image and an alternative text specified in an alt attribute.
+				<img src="http://static.boredpanda.com/blog/wp-content/uploads/2015/12/fluffy-cats-funny-animal-pics-12__605.jpg" alt="Fluffy cat"/>
+			</p>
 		</div>
 	</div>
 	<hr/>
