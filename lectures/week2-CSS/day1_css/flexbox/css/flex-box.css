@@ -1,0 +1,46 @@
+html, body {
+ height: 100%;
+}
+
+body {
+  font-family: Verdana, Geneva, sans-serif;
+}
+
+.container {
+  display: flex;
+  height: 100%;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  background: pink;
+}
+
+.box {
+  background: honeydew;
+  padding: 10px 5px;
+  border: 1px lightblue solid;
+  margin: 10px 5px;
+}
+
+.box:nth-child(3) {
+  flex-grow: 2;
+}
+
+.box3 {
+  order: 0;
+}
+
+.box4 {
+  order: 1;
+}
+
+.box5 {
+  order: 2;
+}
+
+.box1 {
+  order: 3;
+}
+
+.box2 {
+  order: 4;
+}
