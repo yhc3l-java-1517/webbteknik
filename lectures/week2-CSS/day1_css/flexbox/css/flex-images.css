@@ -1,30 +1,23 @@
 .container {
   padding: 5px;
-  background: pink;
+  background-color: pink;
+  max-width: 1500px;
+  margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  max-width: 1500px;
-  margin: 0 auto;
 }
 
 .image-holder {
   padding: 10px;
-  background: honeydew;
+  background-color: honeydew;
   border: 1px lightblue solid;
   margin: 10px 5px;
-  flex: 1;
-  max-width: 250px;
-  min-width: 225px;
+  flex-grow: 1;
+  max-width: 300px;
 }
 
 .image-holder img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
-}
-
-@media all and ( min-width:1290px) {
-  .image-holder {
-    min-width: 185px;
-  }
 }
