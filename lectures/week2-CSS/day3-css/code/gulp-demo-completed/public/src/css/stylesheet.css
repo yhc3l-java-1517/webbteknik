@@ -1,0 +1,77 @@
+html, body {
+ height: 100%;
+}
+
+body {
+  font-family: Verdana, Geneva, sans-serif;
+  line-height: 130%;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  text-decoration:none;
+}
+
+/* WIDTH SETTINGS */
+.nav-hold {
+  width: 95%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* NAVIGATION */
+.nav-bar {
+  width: 100%;
+  background-color: #222;
+}
+.nav-hold {
+  overflow: hidden;
+}
+.nav-logo {
+  float: left;
+  display: block;
+  padding: 20px 10px;
+  color: #f9f9f9;
+  font-weight: 600;
+}
+.nav-list {
+  float: right;
+}
+.nav-list li {
+  float:left;
+}
+.nav-list li a {
+  display: block;
+  padding: 20px 10px;
+  color: #f9f9f9;
+}
+.nav-menu {
+  display: none;
+}
+
+/* MAIN PAGE */
+.container {
+  display: flex;
+  background: pink;
+  flex-wrap: wrap;
+  flex-grow: 1;
+}
+
+.main {
+  background: honeydew;
+  flex-grow: 1;
+}
+
+.aside {
+  width: 150px;
+}
+
+.tools {
+  background: lightblue;
+  order: -1;
+}
+
+.about {
+  background: peachpuff;
+}

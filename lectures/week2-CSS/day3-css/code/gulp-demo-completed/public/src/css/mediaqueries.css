@@ -1,0 +1,41 @@
+/* IE10+ fix */
+@-ms-viewport { width:device-width }
+@viewport { width:device-width }
+
+/* PHONE - 767px */
+@media screen and (max-width:767px) {
+    /* NAVIGATION BAR */
+    .nav-menu {
+        float: right;
+        color: #f9f9f9;
+        display: block;
+        padding: 20px 10px;
+        cursor: pointer;
+    }
+    .nav-list {
+        float: left;
+        width: 100%;
+        overflow: hidden;
+        -webkit-transition-property:  max-height;
+        -webkit-transition-duration: 0.5s;
+        -webkit-transition-timing-function: ease-in-out;
+        transition-property:  max-height;
+        transition-duration: 0.5s;
+        transition-timing-function: ease-in-out;
+        max-height: 0;
+    }
+    .nav-open {
+      max-height: 500px;
+    }
+    .nav-list li {
+      width: 100%;
+    }
+
+    /* MAIN */
+    .container {
+      flex-direction: column;
+    }
+    .aside {
+      width: auto;
+    }
+}
