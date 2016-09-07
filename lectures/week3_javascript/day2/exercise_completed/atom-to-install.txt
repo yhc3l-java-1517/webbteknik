@@ -1,0 +1,7 @@
+
+#atom-beautify to allow for nice code layout.
+apm install atom-beautify
+apm install linter
+apm install linter-csslint
+apm install linter-eslint
+apm install color-picker
