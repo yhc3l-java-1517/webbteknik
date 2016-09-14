@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<script>
+	var count = (function() {
+		var counter = 0;
+		return function innerCount() {
+			return counter++;
+		}
+	})();
+
+	function greet(name) {
+		var greeting = 'hello ';
+		return greeting + name + count();
+	}
+	var name;
+	while (name !== 'exit') {
+		name = prompt('What is your name?');
+
+		if (name === 'Tom') {
+			console.log('Tom');
+		} else {
+			console.log(greet(name));
+		}
+	}
+</script>
