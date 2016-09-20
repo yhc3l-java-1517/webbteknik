@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Step 1</title>
+  </head>
+  <body>
+    <h1>Step 1</h1>
+    <p>
+      <span> hello world</span>
+      some text
+    </p>
+    <p>
+      <span> hello world</span>
+      some text
+    </p>
+  </body>
+  <script>
+    var h1El = document.querySelector('h1');
+    var allPEl = document.querySelectorAll('p');
+    var anchor = document.createElement('a');
+    h1El.innerText = 'hello';
+    h1El.onclick = function(e){
+      console.log(e);
+      console.log('you clicked me');
+    };
+    h1El.ondblclick = function(e){
+      console.log('you double clicked me');
+    };
+
+    h1El.onclick = function(e){
+      console.log('hello');
+    };
+
+    h1El.addEventListener('click', function(){
+
+    });
+
+    // Important javascript naming not css background-color
+    h1El.style.backgroundColor = 'red';
+
+
+  </script>
+</html>
