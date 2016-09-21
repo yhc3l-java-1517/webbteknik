@@ -5,25 +5,43 @@
     <title></title>
   </head>
   <body>
+
+    <script type="text/javascript">
+      var div = document.querySelector('div');
+      var p = document.querySelector('p');
+      var em = document.querySelector('em');
+      var rcm = document.querySelector('.right-click-menu');
+
+      rcm.addEventListener('contextmenu', function(e){
+        console.log('you right clicked');
+        // prevent the default event from showing right click menu
+        e.preventDefault();
+      });
+
+      div.addEventListener('click', function(){
+        console.log('div clicked');
+      }, true);
+      p.addEventListener('click', function(e){
+        console.log('p clicked');
+        // stop the event from bubbling further
+        e.stopPropagation();
+      }, true);
+      em.addEventListener('click', function(e){
+        console.log('em clicked');
+      }, true);
+    </script>
+
     <div>
       <p>
         <em>Click me</em>
       </p>
     </div>
-    <script type="text/javascript">
-      var div = document.querySelector('div');
-      var p = document.querySelector('p');
-      var em = document.querySelector('em');
 
-      div.addEventListener('click', function(){
-        console.log('div clicked');
-      }, true);
-      p.addEventListener('click', function(){
-        console.log('p clicked');
-      });
-      em.addEventListener('click', function(e){
-        console.log('em clicked');
-      });
-    </script>
+    <div class="right-click-menu">
+      Right click overider
+    </div>
+
+
+
   </body>
 </html>
