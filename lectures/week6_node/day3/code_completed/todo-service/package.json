@@ -1,0 +1,17 @@
+{
+  "name": "todo-list",
+  "version": "1.0.0",
+  "description": "todo server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tom Blackmore",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "dom-storage": "^2.0.2",
+    "express": "^4.14.0",
+    "socket.io": "^1.4.8"
+  }
+}
