@@ -1,5 +1,9 @@
 /* eslint import/no-extraneous-dependencies: ["off", {"devDependencies": false}] */
+
 const gulp = require('gulp');
+const browserify = require('browserify');
+const babelify = require('babelify');
+const source = require('vinyl-source-stream');
 
 const htmlmin = require('gulp-htmlmin');
 const concat = require('gulp-concat');
@@ -39,7 +43,15 @@ gulp.task('html', () => gulp.src('./src/**/*.html')
   }))
 );
 
-gulp.task('javascript', () => null);
+gulp.task('javascript', () => browserify('./src/js/app.js')
+    .transform(babelify)
+    .bundle()
+    .pipe(source('todo.bundle.js'))
+    .pipe(gulp.dest('./dist/js'))
+    .pipe(browserSync.reload({
+      stream: true
+    }))
+);
 
 gulp.task('default', ['browserSync', 'html', 'css', 'javascript'], () => {
   gulp.watch('./src/css/**/*.css', ['css']);
