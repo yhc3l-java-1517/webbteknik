@@ -20766,35 +20766,169 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _todoContainer = require('./components/todo-container');
+
+var _todoContainer2 = _interopRequireDefault(_todoContainer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var greeting = 'Hi all';
-var h1 = _react2.default.createElement(
-  'h1',
-  { className: 'my-heading' },
-  greeting
-);
-var MyComponent = _react2.default.createClass({
-  displayName: 'MyComponent',
+var todoContainer = _react2.default.createElement(_todoContainer2.default);
 
-  render: function render() {
-    if (this.props.isHidden) {
-      return null;
-    }
-    return _react2.default.createElement(
-      'h1',
-      { className: 'my-heading' },
-      'This my component'
-    );
+_reactDom2.default.render(todoContainer, document.querySelector('#react-application'));
+
+},{"./components/todo-container":173,"react":171,"react-dom":28}],173:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _todoList = require('./todo-list');
+
+var _todoList2 = _interopRequireDefault(_todoList);
+
+var _testData = require('../test-data');
+
+var _testData2 = _interopRequireDefault(_testData);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TodoContainer = function (_React$Component) {
+  _inherits(TodoContainer, _React$Component);
+
+  function TodoContainer() {
+    _classCallCheck(this, TodoContainer);
+
+    var _this = _possibleConstructorReturn(this, (TodoContainer.__proto__ || Object.getPrototypeOf(TodoContainer)).call(this));
+
+    _this.onKeyDown = _this.onKeyDown.bind(_this);
+    _this.onRemove = _this.onRemove.bind(_this);
+    _this.state = {
+      todos: _testData2.default
+    };
+    return _this;
   }
+
+  _createClass(TodoContainer, [{
+    key: 'onKeyDown',
+    value: function onKeyDown(event) {
+      if (event.key === 'Enter') {
+        var input = event.target;
+        this.setState({
+          todos: this.state.todos.concat([{
+            id: +new Date(),
+            text: input.value
+          }])
+        });
+        input.value = '';
+      }
+    }
+  }, {
+    key: 'onRemove',
+    value: function onRemove(id) {
+      this.setState({
+        todos: this.state.todos.filter(function (item) {
+          return item.id !== id;
+        })
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'todo-container' },
+        _react2.default.createElement('input', { type: 'text', placeholder: 'Add todo', onKeyDown: this.onKeyDown }),
+        _react2.default.createElement(_todoList2.default, { todos: this.state.todos, onRemove: this.onRemove })
+      );
+    }
+  }]);
+
+  return TodoContainer;
+}(_react2.default.Component);
+
+exports.default = TodoContainer;
+
+},{"../test-data":175,"./todo-list":174,"react":171}],174:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
 
-var myNewComponent = _react2.default.createElement(MyComponent, {
-  className: 'my-class',
-  isHidden: false
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TodoItem = function TodoItem(props) {
+  var remove = function remove() {
+    props.onRemove(props.id);
+  };
+  return _react2.default.createElement(
+    "li",
+    { className: "list-group-item" },
+    props.text,
+    _react2.default.createElement(
+      "button",
+      { className: "badge", onClick: remove },
+      "X"
+    )
+  );
+};
+
+TodoItem.propTypes = {
+  text: _react2.default.PropTypes.string,
+  id: _react2.default.PropTypes.number,
+  onRemove: _react2.default.PropTypes.func
+};
+
+var TodoList = function TodoList(props) {
+  return _react2.default.createElement(
+    "ul",
+    null,
+    props.todos.map(function (todoItem) {
+      return _react2.default.createElement(TodoItem, { key: todoItem.id, id: todoItem.id, text: todoItem.text, onRemove: props.onRemove });
+    })
+  );
+};
+
+TodoList.propTypes = function () {
+  return {
+    todos: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.shape({
+      id: _react2.default.PropTypes.number,
+      text: _react2.default.PropTypes.string
+    }))
+  };
+};
+exports.default = TodoList;
+
+},{"react":171}],175:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
+var testData = [{
+  id: 1,
+  text: 'fish'
+}, {
+  id: 2,
+  text: 'chips'
+}];
+exports.default = testData;
 
-var my2NewComponent = _react2.default.createElement(MyComponent, null);
-_reactDom2.default.render(my2NewComponent, document.querySelector('#application'));
-
-},{"react":171,"react-dom":28}]},{},[172]);
+},{}]},{},[172]);
