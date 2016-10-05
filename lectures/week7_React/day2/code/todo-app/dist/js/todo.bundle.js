@@ -20840,38 +20840,152 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _todoList = require('./components/todo-list');
+
+var _todoList2 = _interopRequireDefault(_todoList);
+
+var _todoInput = require('./components/todo-input');
+
+var _todoInput2 = _interopRequireDefault(_todoInput);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var greeting = 'Hi all';
-var h1 = _react2.default.createElement(
-  'h1',
-  { className: 'my-heading' },
-  greeting
+var todoArray = [{
+  id: 1,
+  text: 'fish'
+}, {
+  id: 2,
+  text: 'chips'
+}];
+
+var myTodoList = _react2.default.createElement(
+  'div',
+  { className: 'todo-container' },
+  _react2.default.createElement(_todoInput2.default, null),
+  _react2.default.createElement(_todoList2.default, { todos: todoArray })
 );
-var MyComponent = _react2.default.createClass({
-  displayName: 'MyComponent',
 
-  render: function render() {
-    if (this.props.isHidden) {
-      return null;
-    }
-    return _react2.default.createElement(
-      'h1',
-      { className: 'my-heading' },
-      'This my component'
-    );
+_reactDom2.default.render(myTodoList, document.querySelector('#application'));
+
+},{"./components/todo-input":173,"./components/todo-list":174,"react":171,"react-dom":28}],173:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TodoInput = function TodoInput() {
+  var todoInput = void 0;
+
+  function addTodo() {
+    console.log(todoInput.value);
+    todoInput.value = '';
+    todoInput.focus();
   }
+
+  function handleKeyDown(event) {
+    if (event.key === 'Enter') {
+      addTodo();
+    }
+  }
+
+  function handleClick() {
+    addTodo();
+  }
+
+  return _react2.default.createElement(
+    'div',
+    { className: 'todo-input-container' },
+    _react2.default.createElement('input', {
+      autoFocus: true,
+      type: 'text',
+      ref: function ref(c) {
+        todoInput = c;
+      },
+      onKeyDown: handleKeyDown
+    }),
+    _react2.default.createElement(
+      'button',
+      {
+        type: 'button',
+        className: 'btn btn-primary',
+        onClick: handleClick
+      },
+      'Add item'
+    )
+  );
+};
+
+exports.default = TodoInput;
+
+},{"react":171}],174:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
 
-var myNewComponent = _react2.default.createElement(MyComponent, {
-  className: 'my-class',
-  isHidden: false
-});
+var _react = require("react");
 
-var my2NewComponent = _react2.default.createElement(MyComponent, null);
-_reactDom2.default.render(my2NewComponent, document.querySelector('#application'));
+var _react2 = _interopRequireDefault(_react);
 
-},{"react":171,"react-dom":28}]},{},[172])
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TodoItem = function TodoItem(props) {
+  function remove() {
+    console.log("removing  " + props.id);
+  }
+  return _react2.default.createElement(
+    "li",
+    {
+      className: "list-group-item"
+    },
+    props.text,
+    _react2.default.createElement(
+      "button",
+      { className: "badge", onClick: remove },
+      "X"
+    )
+  );
+};
+TodoItem.propTypes = function () {
+  return {
+    id: _react2.default.PropTypes.number.isRequired,
+    text: _react2.default.PropTypes.string
+  };
+};
+
+var TodoList = function TodoList(props) {
+  return _react2.default.createElement(
+    "ul",
+    { className: "list-group" },
+    props.todos.map(function (todoItem) {
+      return _react2.default.createElement(TodoItem, {
+        key: todoItem.id,
+        id: todoItem.id,
+        text: todoItem.text
+      });
+    })
+  );
+};
+TodoList.propTypes = function () {
+  return {
+    todos: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.shape({
+      id: _react2.default.PropTypes.number,
+      text: _react2.default.PropTypes.string
+    }))
+  };
+};
+
+exports.default = TodoList;
+
+},{"react":171}]},{},[172])
 
 
 //# sourceMappingURL=todo.bundle.js.map

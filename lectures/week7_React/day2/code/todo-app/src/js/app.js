@@ -1,21 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import TodoList from './components/todo-list';
+import TodoInput from './components/todo-input';
 
-const greeting = 'Hi all';
-const h1 = <h1 className="my-heading">{greeting}</h1>;
-const MyComponent = React.createClass({
-  render: function (){
-    if (this.props.isHidden) {
-      return null;
-    }
-    return <h1 className="my-heading">This my component</h1>;
-  }
-});
+const todoArray = [{
+  id: 1,
+  text: 'fish'
+}, {
+  id: 2,
+  text: 'chips'
+}];
 
-const myNewComponent = React.createElement(MyComponent, {
-  className: 'my-class',
-  isHidden: false
-});
+const myTodoList = (
+  <div className="todo-container">
+    <TodoInput />
+    <TodoList todos={todoArray} />
+  </div>
+);
 
-const my2NewComponent = <MyComponent />
-ReactDOM.render(my2NewComponent, document.querySelector('#application'));
+ReactDOM.render(myTodoList, document.querySelector('#application'));
