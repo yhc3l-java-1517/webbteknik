@@ -1,17 +1,16 @@
 import React from 'react';
 import axios from 'axios';
 import TodoList from './todo-list';
-
+import TodoInput from './todo-input';
 
 class TodoContainer extends React.Component {
   constructor() {
     super();
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.handleRemove = this.handleRemove.bind(this);
-    this.onAdd = this.onAdd.bind(this);
     this.state = {
       todos: []
     };
+    this.handleRemove = this.handleRemove.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
   }
 
   componentDidMount() {
@@ -22,24 +21,12 @@ class TodoContainer extends React.Component {
         });
       }
     });
-    this.input.focus();
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       todos: nextProps.todos
     });
-  }
-
-  onAdd() {
-    this.addTodo();
-    this.input.focus();
-  }
-
-  handleKeyDown(event) {
-    if (event.key === 'Enter') {
-      this.addTodo();
-    }
   }
 
   handleRemove(id) {
@@ -52,48 +39,34 @@ class TodoContainer extends React.Component {
     });
   }
 
-  addTodo() {
-    if (this.input.value.trim().length > 0) {
-      const todoItem = {
-        name: this.input.value.trim()
-      };
+  handleAdd(todoText) {
+    const todoItem = {
+      name: todoText
+    };
 
-      axios({
-        method: 'post',
-        url: 'http://localhost:8081/v1/todos',
-        data: todoItem
-      })
-      .then((response) => {
-        if (response.status === 201) {
-          this.setState({
-            todos: this.state.todos.concat([{
-              id: response.data.id,
-              item: todoItem
-            }])
-          });
-        }
-      });
-    }
-    this.input.value = '';
+    axios({
+      method: 'post',
+      url: 'http://localhost:8081/v1/todos',
+      data: todoItem
+    })
+    .then((response) => {
+      if (response.status === 201) {
+        this.setState({
+          todos: this.state.todos.concat([{
+            id: response.data.id,
+            item: todoItem
+          }])
+        });
+      }
+    });
   }
 
   render() {
     return (
       <div className="todo-container">
-        <input
-          type="text"
-          ref={(c) => { this.input = c; }}
-          onKeyDown={this.handleKeyDown}
-          value={this.state.inputValue}
+        <TodoInput
+          onAdd={this.handleAdd}
         />
-        <button
-          type="button"
-          id="button"
-          className="btn btn-primary"
-          onClick={this.onAdd}
-        >
-          add item
-        </button>
         <TodoList
           todos={this.state.todos}
           onRemove={this.handleRemove}

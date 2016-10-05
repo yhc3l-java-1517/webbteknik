@@ -5,7 +5,7 @@ const browserify = require('browserify');
 const babelify = require('babelify');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
-const uglify = require('gulp-uglify');
+
 const htmlmin = require('gulp-htmlmin');
 const concat = require('gulp-concat');
 const sourcemaps = require('gulp-sourcemaps');
@@ -45,8 +45,8 @@ gulp.task('html', () => gulp.src('./src/**/*.html')
 );
 
 gulp.task('javascript', () => browserify('./src/js/app.js', {
-    debug: true
-  })
+  debug: true
+})
   .transform(babelify)
   .bundle()
   .pipe(source('todo.bundle.js'))
@@ -60,24 +60,6 @@ gulp.task('javascript', () => browserify('./src/js/app.js', {
     stream: true
   }))
 );
-
-gulp.task('javascript-production', () => {
-  process.env.NODE_ENV = 'production';
-  return browserify('./src/js/app.js', { debug: true })
-    .transform(babelify)
-    .bundle()
-    .pipe(source('todo.bundle.min.js'))
-    .pipe(buffer())
-    .pipe(sourcemaps.init({
-      loadMaps: true
-    }))
-    .pipe(uglify())
-    .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('./dist/js'))
-    .pipe(browserSync.reload({
-      stream: true
-    }));
-});
 
 gulp.task('default', ['browserSync', 'html', 'css', 'javascript'], () => {
   gulp.watch('./src/css/**/*.css', ['css']);
