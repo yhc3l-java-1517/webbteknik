@@ -1,10 +1,10 @@
 import React from 'react';
 
-const TodoInput = () => {
+const TodoInput = (props) => {
   let todoInput;
 
   function addTodo() {
-    console.log(todoInput.value);
+    props.onAdd(todoInput.value);
     todoInput.value = '';
     todoInput.focus();
   }

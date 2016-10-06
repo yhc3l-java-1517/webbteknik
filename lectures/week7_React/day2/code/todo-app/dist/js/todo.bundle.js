@@ -20840,34 +20840,110 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _todoList = require('./components/todo-list');
+var _todoContainer = require('./components/todo-container');
 
-var _todoList2 = _interopRequireDefault(_todoList);
-
-var _todoInput = require('./components/todo-input');
-
-var _todoInput2 = _interopRequireDefault(_todoInput);
+var _todoContainer2 = _interopRequireDefault(_todoContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var todoArray = [{
-  id: 1,
-  text: 'fish'
-}, {
-  id: 2,
-  text: 'chips'
-}];
-
-var myTodoList = _react2.default.createElement(
-  'div',
-  { className: 'todo-container' },
-  _react2.default.createElement(_todoInput2.default, null),
-  _react2.default.createElement(_todoList2.default, { todos: todoArray })
-);
+var myTodoList = _react2.default.createElement(_todoContainer2.default, null);
 
 _reactDom2.default.render(myTodoList, document.querySelector('#application'));
 
-},{"./components/todo-input":173,"./components/todo-list":174,"react":171,"react-dom":28}],173:[function(require,module,exports){
+},{"./components/todo-container":173,"react":171,"react-dom":28}],173:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _todoInput = require('./todo-input');
+
+var _todoInput2 = _interopRequireDefault(_todoInput);
+
+var _todoList = require('./todo-list');
+
+var _todoList2 = _interopRequireDefault(_todoList);
+
+var _todoError = require('./todo-error');
+
+var _todoError2 = _interopRequireDefault(_todoError);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TodoContainer = function (_React$Component) {
+  _inherits(TodoContainer, _React$Component);
+
+  function TodoContainer() {
+    _classCallCheck(this, TodoContainer);
+
+    var _this = _possibleConstructorReturn(this, (TodoContainer.__proto__ || Object.getPrototypeOf(TodoContainer)).call(this));
+
+    _this.state = {
+      todos: [{ id: 1, text: 'tea' }],
+      displayError: true
+    };
+    _this.handleAdd = _this.handleAdd.bind(_this);
+    _this.handleRemove = _this.handleRemove.bind(_this);
+    return _this;
+  }
+
+  _createClass(TodoContainer, [{
+    key: 'handleAdd',
+    value: function handleAdd(todoText) {
+      var newTodoText = todoText.trim();
+      if (todoText.length > 0) {
+        this.setState({
+          todos: this.state.todos.concat([{
+            id: +new Date(),
+            text: newTodoText
+          }])
+        });
+      }
+    }
+  }, {
+    key: 'handleRemove',
+    value: function handleRemove(id) {
+      this.setState({
+        todos: this.state.todos.filter(function (item) {
+          return item.id !== id;
+        })
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'todo-container' },
+        _react2.default.createElement(_todoInput2.default, { onAdd: this.handleAdd }),
+        _react2.default.createElement(_todoList2.default, { todos: this.state.todos, onRemove: this.handleRemove }),
+        _react2.default.createElement(_todoError2.default, { isVisible: this.state.displayError })
+      );
+    }
+  }]);
+
+  return TodoContainer;
+}(_react2.default.Component);
+
+exports.default = TodoContainer;
+
+},{"./todo-error":174,"./todo-input":175,"./todo-list":176,"react":171}],174:[function(require,module,exports){
+"use strict";
+
+},{}],175:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -20880,11 +20956,11 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var TodoInput = function TodoInput() {
+var TodoInput = function TodoInput(props) {
   var todoInput = void 0;
 
   function addTodo() {
-    console.log(todoInput.value);
+    props.onAdd(todoInput.value);
     todoInput.value = '';
     todoInput.focus();
   }
@@ -20924,7 +21000,7 @@ var TodoInput = function TodoInput() {
 
 exports.default = TodoInput;
 
-},{"react":171}],174:[function(require,module,exports){
+},{"react":171}],176:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -20938,8 +21014,8 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var TodoItem = function TodoItem(props) {
-  function remove() {
-    console.log("removing  " + props.id);
+  function handleClick() {
+    props.onRemove(props.id);
   }
   return _react2.default.createElement(
     "li",
@@ -20949,7 +21025,7 @@ var TodoItem = function TodoItem(props) {
     props.text,
     _react2.default.createElement(
       "button",
-      { className: "badge", onClick: remove },
+      { className: "badge", onClick: handleClick },
       "X"
     )
   );
@@ -20957,7 +21033,8 @@ var TodoItem = function TodoItem(props) {
 TodoItem.propTypes = function () {
   return {
     id: _react2.default.PropTypes.number.isRequired,
-    text: _react2.default.PropTypes.string
+    text: _react2.default.PropTypes.string,
+    onRemove: _react2.default.PropTypes.func
   };
 };
 
@@ -20969,9 +21046,10 @@ var TodoList = function TodoList(props) {
       return _react2.default.createElement(TodoItem, {
         key: todoItem.id,
         id: todoItem.id,
-        text: todoItem.text
+        text: todoItem.text,
+        onRemove: props.onRemove
       });
-    })
+    }).reverse()
   );
 };
 TodoList.propTypes = function () {
@@ -20979,7 +21057,8 @@ TodoList.propTypes = function () {
     todos: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.shape({
       id: _react2.default.PropTypes.number,
       text: _react2.default.PropTypes.string
-    }))
+    })),
+    onRemove: _react2.default.PropTypes.func
   };
 };
 
