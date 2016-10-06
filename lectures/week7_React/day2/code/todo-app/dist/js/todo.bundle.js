@@ -20846,7 +20846,12 @@ var _todoContainer2 = _interopRequireDefault(_todoContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var myTodoList = _react2.default.createElement(_todoContainer2.default, null);
+var myTodoList = _react2.default.createElement(
+  'div',
+  null,
+  _react2.default.createElement(_todoContainer2.default, null),
+  _react2.default.createElement(_todoContainer2.default, null)
+);
 
 _reactDom2.default.render(myTodoList, document.querySelector('#application'));
 
@@ -20897,6 +20902,7 @@ var TodoContainer = function (_React$Component) {
     };
     _this.handleAdd = _this.handleAdd.bind(_this);
     _this.handleRemove = _this.handleRemove.bind(_this);
+    _this.handleHideError = _this.handleHideError.bind(_this);
     return _this;
   }
 
@@ -20923,6 +20929,13 @@ var TodoContainer = function (_React$Component) {
       });
     }
   }, {
+    key: 'handleHideError',
+    value: function handleHideError() {
+      this.setState({
+        displayError: false
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -20930,7 +20943,7 @@ var TodoContainer = function (_React$Component) {
         { className: 'todo-container' },
         _react2.default.createElement(_todoInput2.default, { onAdd: this.handleAdd }),
         _react2.default.createElement(_todoList2.default, { todos: this.state.todos, onRemove: this.handleRemove }),
-        _react2.default.createElement(_todoError2.default, { isVisible: this.state.displayError })
+        _react2.default.createElement(_todoError2.default, { isVisible: this.state.displayError, onHideError: this.handleHideError })
       );
     }
   }]);
@@ -20943,7 +20956,36 @@ exports.default = TodoContainer;
 },{"./todo-error":174,"./todo-input":175,"./todo-list":176,"react":171}],174:[function(require,module,exports){
 "use strict";
 
-},{}],175:[function(require,module,exports){
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TodoError = function TodoError(props) {
+  if (props.isVisible) {
+    return _react2.default.createElement(
+      "div",
+      { className: "todo-error" },
+      "an error has occured",
+      _react2.default.createElement(
+        "button",
+        { type: "button", onClick: props.onHideError },
+        " hide "
+      )
+    );
+  }
+  return null;
+}; // 1) Create a stateless component to display "an error has occiured"
+// 2) Make the stateless component be hidden if the prop isHidden is true and display if false
+// 3) Add button to dismiss error message and update the state of todocontainer
+exports.default = TodoError;
+
+},{"react":171}],175:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

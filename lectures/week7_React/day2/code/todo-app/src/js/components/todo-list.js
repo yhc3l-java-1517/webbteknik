@@ -19,10 +19,6 @@ TodoItem.propTypes = () => ({
   onRemove: React.PropTypes.func
 });
 
-
-
-
-
 const TodoList = props => (<ul className="list-group">{
     props.todos.map(todoItem => (
       <TodoItem

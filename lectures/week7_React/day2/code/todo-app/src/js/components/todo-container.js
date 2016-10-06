@@ -12,6 +12,7 @@ class TodoContainer extends React.Component {
     };
     this.handleAdd = this.handleAdd.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
+    this.handleHideError = this.handleHideError.bind(this);
   }
 
   handleAdd(todoText) {
@@ -32,12 +33,18 @@ class TodoContainer extends React.Component {
     });
   }
 
+  handleHideError() {
+    this.setState({
+      displayError: false
+    });
+  }
+
   render() {
     return (
       <div className="todo-container">
         <TodoInput onAdd={this.handleAdd} />
         <TodoList todos={this.state.todos} onRemove={this.handleRemove} />
-        <TodoError isVisible={this.state.displayError} />
+        <TodoError isVisible={this.state.displayError} onHideError={this.handleHideError} />
       </div>
     );
   }
