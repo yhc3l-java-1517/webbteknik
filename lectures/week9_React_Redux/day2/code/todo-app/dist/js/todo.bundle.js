@@ -948,7 +948,7 @@ module.exports = require('./lib/index');
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _ponyfill = require('./ponyfill');
@@ -957,12 +957,17 @@ var _ponyfill2 = _interopRequireDefault(_ponyfill);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var root = undefined; /* global window */
+var root = module; /* global window */
 
-if (typeof global !== 'undefined') {
-	root = global;
+
+if (typeof self !== 'undefined') {
+  root = self;
 } else if (typeof window !== 'undefined') {
-	root = window;
+  root = window;
+} else if (typeof global !== 'undefined') {
+  root = global;
+} else {
+  root = Function('return this')();
 }
 
 var result = (0, _ponyfill2['default'])(root);
@@ -998,151 +1003,28 @@ function symbolObservablePonyfill(root) {
 
 var _redux = require('redux');
 
-var _reducers = require('./reducers');
+var reducer = function reducer(state, action) {
+  if (action.type === 'INC') {
+    return state + 1;
+  } else if (action.type === 'DEC') {
+    return state - 1;
+  }
+  return state;
+};
 
-var _reducers2 = _interopRequireDefault(_reducers);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var store = (0, _redux.createStore)(_reducers2.default);
+var store = (0, _redux.createStore)(reducer, 0);
 
 store.subscribe(function () {
   console.log(store.getState());
 });
 
 store.dispatch({
-  type: 'ADD_PET',
-  data: {
-    text: 'fish'
-  }
+  type: 'INC'
 });
 
 window.store = store;
 
-},{"./reducers":18,"redux":11}],17:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var action = arguments[1];
-
-  switch (action.type) {
-    case 'ADD_TO_BASKET':
-      {
-        var basketItem = Object.assign({}, action.data);
-        return [].concat(_toConsumableArray(state), [basketItem]);
-      }
-    case 'REMOVE_FROM_BASKET':
-      {
-        return state.filter(function (item) {
-          return item.id !== action.data.id;
-        });
-      }
-    case 'CHECKOUT':
-      {
-        return [];
-      }
-    default:
-      {
-        return state;
-      }
-  }
-};
-
-},{}],18:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _redux = require('redux');
-
-var _pets = require('./pets');
-
-var _pets2 = _interopRequireDefault(_pets);
-
-var _basketItems = require('./basket-items');
-
-var _basketItems2 = _interopRequireDefault(_basketItems);
-
-var _user = require('./user');
-
-var _user2 = _interopRequireDefault(_user);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = (0, _redux.combineReducers)({
-  pets: _pets2.default,
-  basketItems: _basketItems2.default,
-  user: _user2.default
-});
-
-},{"./basket-items":17,"./pets":19,"./user":20,"redux":11}],19:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var action = arguments[1];
-
-  switch (action.type) {
-    case 'REMOVE_FROM_BASKET':
-    case 'ADD_PET':
-      {
-        var newPet = Object.assign({}, action.data, { id: action.data.id || state.length });
-        return [].concat(_toConsumableArray(state), [newPet]);
-      }
-    case 'ADD_TO_BASKET':
-    case 'REMOVE_PET':
-      {
-        return state.filter(function (pet) {
-          return pet.id !== action.data.id;
-        });
-      }
-    default:
-      {
-        return state;
-      }
-  }
-};
-
-},{}],20:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { id: 1, name: 'fred' };
-  var action = arguments[1];
-
-  switch (action.type) {
-    case 'SET_USER':
-      {
-        var user = Object.assign({}, action.data);
-        return user;
-      }
-    default:
-      {
-        return state;
-      }
-  }
-};
-
-},{}]},{},[16])
+},{"redux":11}]},{},[16])
 
 
 //# sourceMappingURL=todo.bundle.js.map
