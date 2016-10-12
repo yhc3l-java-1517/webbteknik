@@ -1003,23 +1003,85 @@ function symbolObservablePonyfill(root) {
 
 var _redux = require('redux');
 
-var reducer = function reducer(state, action) {
-  if (action.type === 'INC') {
-    return state + 1;
-  } else if (action.type === 'DEC') {
-    return state - 1;
-  }
-  return state;
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var ADD_PET = 'ADD_PET';
+var REMOVE_PET = 'REMOVE_PET';
+var SET_USER = 'SET_USER';
+var ADD_TO_BASKET = 'ADD_TO_BASKET';
+var REMOVE_FROM_BASKET = 'REMOVE_FROM_BASKET';
+var CHECKOUT = 'CHECKOUT';
+
+var initialState = {
+  pets: [],
+  user: { id: 1, name: 'Tom' },
+  basket: []
 };
 
-var store = (0, _redux.createStore)(reducer, 0);
+var reducer = function reducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  var newState = Object.assign({}, state);
+  switch (action.type) {
+    case ADD_PET:
+      {
+        var newPet = Object.assign({}, action.data);
+        newState.pets = [].concat(_toConsumableArray(state.pets), [newPet]);
+        return newState;
+      }
+    case REMOVE_PET:
+      {
+        newState.pets = state.pets.filter(function (pet) {
+          return pet.id !== action.data.id;
+        });
+        return newState;
+      }
+    case SET_USER:
+      {
+        var user = Object.assign({}, action.data);
+        newState.user = user;
+        return newState;
+      }
+    case ADD_TO_BASKET:
+      {
+        var pet = Object.assign({}, action.data);
+        newState.basket = [].concat(_toConsumableArray(state.basket), [pet]);
+        return newState;
+      }
+    case REMOVE_FROM_BASKET:
+      {
+        newState.basket = state.basket.filter(function (item) {
+          return item.id !== action.data.id;
+        });
+        return newState;
+      }
+    case CHECKOUT:
+      {
+        newState.basket = [];
+        return newState;
+      }
+    default:
+      {
+        return state;
+      }
+  }
+};
+
+var store = (0, _redux.createStore)(reducer);
 
 store.subscribe(function () {
   console.log(store.getState());
 });
 
 store.dispatch({
-  type: 'INC'
+  type: ADD_PET,
+  data: { id: 15, animal: 'fish' }
+});
+
+store.dispatch({
+  type: SET_USER,
+  data: { id: 13, name: 'Fred' }
 });
 
 window.store = store;
