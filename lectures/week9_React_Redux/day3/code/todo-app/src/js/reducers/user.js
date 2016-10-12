@@ -1,6 +1,6 @@
 import { SET_USER } from '../constants/action-types';
 
-const reducer = (userState = { id: 1, name: 'Tom' }, action) => {
+const reducer = (userState = { id: 1, username: 'Tom' }, action) => {
   let newState;
   switch (action.type) {
     case SET_USER: {

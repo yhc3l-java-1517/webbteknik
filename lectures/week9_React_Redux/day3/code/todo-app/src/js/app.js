@@ -1,12 +1,12 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import store from './store';
-import * as actions from './actions';
+// import * as actions from './actions';
+import ShopContainer from './components/shop-container';
 
-store.subscribe(() => {
-  console.log(store.getState());
-});
-
-store.dispatch(actions.addPet(
-  { id: 15, animal: 'fish' }
-));
-
-window.store = store;
+ReactDOM.render((
+  <Provider store={store}>
+    <ShopContainer />
+  </Provider>),
+  document.querySelector('#application'));
