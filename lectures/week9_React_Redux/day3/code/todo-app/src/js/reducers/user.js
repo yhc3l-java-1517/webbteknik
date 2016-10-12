@@ -1,10 +1,11 @@
 import { SET_USER } from '../constants/action-types';
 
 const reducer = (userState = { id: 1, name: 'Tom' }, action) => {
+  let newState;
   switch (action.type) {
     case SET_USER: {
-      userState = Object.assign({}, action.data);
-      return userState;
+      newState = Object.assign({}, action.data);
+      return newState;
     }
     default: {
       return userState;

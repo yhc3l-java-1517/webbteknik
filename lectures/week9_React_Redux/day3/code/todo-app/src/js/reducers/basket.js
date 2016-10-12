@@ -1,19 +1,20 @@
 import { ADD_TO_BASKET, REMOVE_FROM_BASKET, CHECKOUT } from '../constants/action-types';
 
 const reducer = (basketState = [], action) => {
+  let newBasketState;
   switch (action.type) {
     case ADD_TO_BASKET: {
       const pet = Object.assign({}, action.data);
-      basketState = [...basketState, pet];
-      return basketState;
+      newBasketState = [...basketState, pet];
+      return newBasketState;
     }
     case REMOVE_FROM_BASKET: {
-      basketState = basketState.filter(item => item.id !== action.data.id);
-      return basketState;
+      newBasketState = basketState.filter(item => item.id !== action.data.id);
+      return newBasketState;
     }
     case CHECKOUT: {
-      basketState = [];
-      return basketState;
+      newBasketState = [];
+      return newBasketState;
     }
     default: {
       return basketState;
