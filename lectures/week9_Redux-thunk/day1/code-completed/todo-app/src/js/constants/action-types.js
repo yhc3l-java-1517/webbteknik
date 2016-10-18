@@ -1,0 +1,9 @@
+export const ADD_TODO = 'ADD_TODO';
+export const REMOVE_TODO = 'REMOVE_TODO';
+export const UPDATE_ALL_TODOS = 'UPDATE_ALL_TODOS';
+export const SET_ERROR = 'SET_ERROR';
+export const CLEAR_ERROR = 'CLEAR_ERROR';
+export const SET_LOADING = 'SET_LOADING';
+export const SET_LOADED = 'SET_LOADED';
+export const SET_SOCKET_ACTIVE = 'SET_SOCKET_ACTIVE';
+export const SET_SOCKET_INACTIVE = 'SET_SOCKET_INACTIVE';
