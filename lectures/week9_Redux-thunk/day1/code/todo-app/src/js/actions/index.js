@@ -76,7 +76,6 @@ export const removeTodo = id => (dispatch) => {
           });
 };
 
-
 export const startSocket = () => (dispatch) => {
   const socket = socketIOClient('http://localhost:8081');
   socket.on('todo-update', (data) => {
