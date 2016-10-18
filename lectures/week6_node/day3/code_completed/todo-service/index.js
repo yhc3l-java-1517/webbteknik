@@ -1,11 +1,10 @@
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
 var bodyParser = require('body-parser');
 var cors = require('./middleware/cors');
 var todoCtr = require('./controllers/routes/todo');
-var todoSocket = require('./controllers/socket/todo')
+var todoSocket = require('./controllers/socket/todo');
 
 /* Middleware */
 app.use(bodyParser.json());
@@ -22,7 +21,7 @@ app.put('/v1/todos/:id', todoCtr.update);
 app.post('/v1/todos', todoCtr.add);
 
 /* Socket */
-io.on('connection', todoSocket);
+todoSocket(http);
 
 http.listen(8081, function(){
   console.log('listening on *:8081');
