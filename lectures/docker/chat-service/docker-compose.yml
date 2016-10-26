@@ -1,0 +1,15 @@
+http:
+  restart: always
+  build: ../chat-client
+  ports:
+    - "80:80"
+service:
+  restart: always
+  build: .
+  ports:
+    - "0.0.0.0:8080:8080"
+  links:
+    - redis
+redis:
+  restart: always
+  image: redis

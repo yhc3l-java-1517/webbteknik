@@ -1,0 +1,10 @@
+service:
+  restart: always
+  build: .
+  ports:
+    - "0.0.0.0:80:8001"
+  links:
+    - redis
+redis:
+  restart: always
+  image: redis

@@ -1,0 +1,28 @@
+{
+  "name": "todo-list",
+  "version": "1.0.0",
+  "description": "todo server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "pm2 start index.js -i max"
+  },
+  "author": "Tom Blackmore",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "dom-storage": "^2.0.2",
+    "eslint": "^3.7.1",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-plugin-import": "^1.16.0",
+    "eslint-plugin-jsx-a11y": "^2.2.2",
+    "eslint-plugin-react": "^6.3.0",
+    "express": "^4.14.0",
+    "metrics-process": "^1.0.2",
+    "redis": "^2.6.2",
+    "socket.io": "^1.4.8"
+  },
+  "devDependencies": {
+    "pm2": "^2.0.18"
+  }
+}
